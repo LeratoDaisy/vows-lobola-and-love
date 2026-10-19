@@ -1,0 +1,28 @@
+import { useEffect, useState } from "react";
+import type { Session } from "@supabase/supabase-js";
+import { supabase } from "@/integrations/supabase/client";
+
+export function useSession() {
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      setLoading(false);
+    });
+    return () => data.subscription.unsubscribe();
+  }, []);
+  return { session, user: session?.user ?? null, loading };
+}
+
+export function slugify(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+export function formatDate(d: string | null) {
+  if (!d) return "Date to be announced";
+  return new Date(d + "T00:00:00").toLocaleDateString("en-ZA", {
+    weekday: "long", day: "numeric", month: "long", year: "numeric",
+  });
+}
