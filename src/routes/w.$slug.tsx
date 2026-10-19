@@ -116,7 +116,7 @@ function RsvpForm({ weddingId, showLobola }: { weddingId: string; showLobola: bo
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const name = String(f.get("name") || "").trim();
-    if (!name) return toast.error("Please enter your name");
+    if (!name) { toast.error("Please enter your name"); return; }
     setBusy(true);
     const { error } = await supabase.from("rsvps").insert({
       wedding_id: weddingId,
@@ -129,7 +129,7 @@ function RsvpForm({ weddingId, showLobola }: { weddingId: string; showLobola: bo
       message: String(f.get("message") || "").slice(0, 1000) || null,
     });
     setBusy(false);
-    if (error) return toast.error("Could not send RSVP. Please try again.");
+    if (error) { toast.error("Could not send RSVP. Please try again."); return; }
     setDone(true);
   }
 

@@ -55,7 +55,7 @@ function Manage() {
       wedding_date: str(f, "wedding_date"), venue: str(f, "venue"), story: str(f, "story"),
       lobola_date: str(f, "lobola_date"), lobola_venue: str(f, "lobola_venue"), lobola_details: str(f, "lobola_details"),
     }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Saved"); refresh();
   }
 
@@ -63,7 +63,7 @@ function Manage() {
     e.preventDefault();
     const form = e.currentTarget; const f = new FormData(form);
     const { error } = await supabase.from("lobola_items").insert({ wedding_id: id, title: str(f, "title")!, notes: str(f, "notes") });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     form.reset(); refresh();
   }
 
@@ -73,7 +73,7 @@ function Manage() {
     let url = str(f, "url")!;
     if (!/^https?:\/\//i.test(url)) url = "https://" + url;
     const { error } = await supabase.from("registry_stores").insert({ wedding_id: id, name: str(f, "name")!, url, description: str(f, "description") });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     form.reset(); refresh();
   }
 

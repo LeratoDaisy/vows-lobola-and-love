@@ -40,7 +40,7 @@ function Dashboard() {
     e.preventDefault();
     const slug = `${slugify(one)}-and-${slugify(two)}-${Math.random().toString(36).slice(2, 6)}`;
     const { error } = await supabase.from("weddings").insert({ owner_id: userId, partner_one: one, partner_two: two, wedding_date: date || null, slug });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     setOne(""); setTwo(""); setDate("");
     qc.invalidateQueries({ queryKey: ["my-weddings"] });
     toast.success("Wedding page created");
