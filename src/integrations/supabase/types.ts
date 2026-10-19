@@ -14,7 +14,168 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      lobola_items: {
+        Row: {
+          created_at: string
+          id: string
+          notes: string | null
+          status: string
+          title: string
+          wedding_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          status?: string
+          title: string
+          wedding_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          status?: string
+          title?: string
+          wedding_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lobola_items_wedding_id_fkey"
+            columns: ["wedding_id"]
+            isOneToOne: false
+            referencedRelation: "weddings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      registry_stores: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          url: string
+          wedding_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          url: string
+          wedding_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          url?: string
+          wedding_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "registry_stores_wedding_id_fkey"
+            columns: ["wedding_id"]
+            isOneToOne: false
+            referencedRelation: "weddings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rsvps: {
+        Row: {
+          attending: boolean
+          created_at: string
+          dietary: string | null
+          email: string | null
+          events: string
+          guest_count: number
+          id: string
+          message: string | null
+          name: string
+          wedding_id: string
+        }
+        Insert: {
+          attending?: boolean
+          created_at?: string
+          dietary?: string | null
+          email?: string | null
+          events?: string
+          guest_count?: number
+          id?: string
+          message?: string | null
+          name: string
+          wedding_id: string
+        }
+        Update: {
+          attending?: boolean
+          created_at?: string
+          dietary?: string | null
+          email?: string | null
+          events?: string
+          guest_count?: number
+          id?: string
+          message?: string | null
+          name?: string
+          wedding_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rsvps_wedding_id_fkey"
+            columns: ["wedding_id"]
+            isOneToOne: false
+            referencedRelation: "weddings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      weddings: {
+        Row: {
+          created_at: string
+          id: string
+          lobola_date: string | null
+          lobola_details: string | null
+          lobola_venue: string | null
+          owner_id: string
+          partner_one: string
+          partner_two: string
+          slug: string
+          story: string | null
+          venue: string | null
+          wedding_date: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          lobola_date?: string | null
+          lobola_details?: string | null
+          lobola_venue?: string | null
+          owner_id: string
+          partner_one: string
+          partner_two: string
+          slug: string
+          story?: string | null
+          venue?: string | null
+          wedding_date?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          lobola_date?: string | null
+          lobola_details?: string | null
+          lobola_venue?: string | null
+          owner_id?: string
+          partner_one?: string
+          partner_two?: string
+          slug?: string
+          story?: string | null
+          venue?: string | null
+          wedding_date?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
